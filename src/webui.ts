@@ -51,6 +51,20 @@ export class WebUI {
   }
 
   /**
+   * Set root folder for proper loading resources
+   * @param rootFolder Root folder to set
+   */
+  async setRootFolder(rootFolder: string) {
+    const status = this.#lib.symbols.webui_set_root_folder(
+        this.#window,
+        toCString(rootFolder),
+    );
+    if (!status) {
+      throw new WebUIError(`unable to set root folder`);
+    }
+  }
+
+  /**
    * Show the window or update the UI with the new content.
    * @returns Promise that resolves when the client bridge is linked.
    * @param {string} content - Valid html content or same root file path.
